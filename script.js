@@ -1,4 +1,27 @@
 /* ==============================
+   0) YAXINLAŞDIRMANI BLOKLA
+   Ctrl + təkər, Ctrl + / Ctrl -, touchpad və barmaqla (telefon)
+   ============================== */
+document.addEventListener("wheel", function (e) {
+  if (e.ctrlKey) e.preventDefault();
+}, { passive: false });
+
+document.addEventListener("keydown", function (e) {
+  if (!(e.ctrlKey || e.metaKey)) return;
+  var keys = ["+", "-", "=", "_", "0"];
+  var codes = ["Equal", "Minus", "Digit0", "NumpadAdd", "NumpadSubtract", "Numpad0"];
+  if (keys.indexOf(e.key) > -1 || codes.indexOf(e.code) > -1) e.preventDefault();
+});
+
+["gesturestart", "gesturechange", "gestureend"].forEach(function (t) {
+  document.addEventListener(t, function (e) { e.preventDefault(); });
+});
+
+document.addEventListener("touchmove", function (e) {
+  if (e.touches.length > 1) e.preventDefault();
+}, { passive: false });
+
+/* ==============================
    1) LOGONU TAP
    Qovluqdakı logo.png, logo.webp, logo.jpg, logo.jpeg, logo.svg
    fayllarından hansı varsa onu götürür.
@@ -51,10 +74,44 @@ function showPage() {
     }
   }
 
-  pages.forEach(function (p) {
-    document.getElementById("view-" + p).classList.toggle("active", p === h);
-  });
-  window.scrollTo(0, 0);
+  swapView(h);
+}
+
+/* Köhnə səhifə solur (0.25 san), sonra yenisi gəlir */
+var switching = 0;
+var firstView = true;
+
+function swapView(h) {
+  var next = document.getElementById("view-" + h);
+  var cur = document.querySelector(".view.active");
+
+  // İlk açılış: animasiyasız
+  if (firstView) {
+    firstView = false;
+    pages.forEach(function (p) {
+      document.getElementById("view-" + p).classList.toggle("active", p === h);
+    });
+    return;
+  }
+
+  // Eyni səhifədir (və ya solmaqdan geri qayıdıb)
+  if (cur === next) {
+    cur.classList.remove("leave");
+    switching++;
+    return;
+  }
+
+  var id = ++switching;
+  if (cur) cur.classList.add("leave");
+
+  setTimeout(function () {
+    if (id !== switching) return; // arada başqa keçid olub
+    pages.forEach(function (p) {
+      document.getElementById("view-" + p).classList.remove("active", "leave");
+    });
+    next.classList.add("active");
+    window.scrollTo(0, 0);
+  }, 250);
 }
 window.addEventListener("hashchange", showPage);
 
