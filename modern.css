@@ -1,0 +1,190 @@
+/* Yeni dizayn əlavələri - style.css-dən SONRA yüklənir */
+
+/* Yazı xanalarında seçmə və yazma işləsin */
+input, textarea, select { user-select: text; -webkit-user-select: text; }
+
+/* Başlıq: sarı söz parıldayır */
+h1 span {
+  background: linear-gradient(90deg, var(--yellow), #ffe680, var(--yellow));
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 5s linear infinite;
+}
+@keyframes shine { to { background-position: -200% 0; } }
+
+/* Hero arxasında üzən sarı işıq */
+.hero { position: relative; }
+.hero::before {
+  content: "";
+  position: absolute;
+  right: 0; top: 12%;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 196, 0, 0.2), transparent 65%);
+  pointer-events: none;
+  animation: float 7s ease-in-out infinite;
+}
+@keyframes float { 50% { transform: translateY(-24px); } }
+
+.tag { background: rgba(255, 196, 0, 0.08); }
+
+/* Düymə: parıltı effekti */
+.btn,
+.btn:hover {
+  background: linear-gradient(110deg, #ffc400 40%, #ffe27a 50%, #ffc400 60%);
+  background-size: 250% 100%;
+}
+.btn { background-position: 0 0; transition: transform 0.2s, background-position 0.6s; }
+.btn:hover { background-position: 100% 0; }
+button.btn { border: 0; cursor: pointer; }
+button.btn:disabled { opacity: 0.6; cursor: wait; }
+
+/* Kartlar */
+.card {
+  background: linear-gradient(160deg, #1c1c1e, #111112);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--yellow);
+  box-shadow: 0 14px 34px rgba(255, 196, 0, 0.12);
+}
+
+/* Üst zolaqdakı Profil / Çıxış */
+#nav {
+  position: absolute;
+  right: 14px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; gap: 8px; align-items: center;
+}
+#nav[hidden] { display: none; }
+#nav a, #nav button {
+  font: 500 0.85rem Oswald, Impact, sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+#nav a:hover, #nav button:hover { border-color: var(--yellow); color: var(--yellow); }
+
+/* Xoş gəldin */
+.welcome { display: inline-block; margin-bottom: 16px; font-size: 1.15rem; }
+.welcome[hidden] { display: none; }
+.welcome b { color: var(--yellow); font-weight: 700; }
+
+/* Səhifə başlığı */
+.title {
+  font-family: Oswald, Impact, sans-serif;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  line-height: 1.15;
+  text-transform: uppercase;
+  margin: 20px 0 28px;
+}
+.title span { color: var(--yellow); }
+
+/* 2 seçim kartı */
+.choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  max-width: 760px;
+}
+.choice {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--yellow);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.choice b {
+  font-family: Oswald, Impact, sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.choice small { color: var(--muted); }
+.choice:hover {
+  transform: translateY(-5px);
+  border-color: var(--yellow);
+  box-shadow: 0 14px 34px rgba(255, 196, 0, 0.12);
+}
+
+/* Formalar */
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 760px;
+  padding: 28px;
+  background: rgba(22, 22, 23, 0.85);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--yellow);
+}
+.form.narrow { grid-template-columns: 1fr; max-width: 440px; }
+.form label {
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.form input, .form select, .form textarea {
+  width: 100%;
+  background: #0e0e0f;
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 12px 14px;
+  font: inherit; font-size: 1rem;
+  letter-spacing: normal; text-transform: none;
+  outline: 0;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form input:focus, .form select:focus, .form textarea:focus {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 3px rgba(255, 196, 0, 0.18);
+}
+.form select option { background: #161617; }
+.form .full { grid-column: 1 / -1; }
+.err { color: #ff6b6b; min-height: 1.2em; font-size: 0.9rem; }
+.alt { color: var(--muted); font-size: 0.9rem; }
+.alt a { color: var(--yellow); }
+
+/* Profil */
+.profile {
+  max-width: 620px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--yellow);
+}
+.profile .row {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--line);
+}
+.profile .row:last-child { border-bottom: 0; }
+.profile .row span {
+  flex: none;
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.profile .row b { font-weight: 500; text-align: right; word-break: break-word; }
+
+/* Telefon */
+@media (max-width: 640px) {
+  .form { grid-template-columns: 1fr; padding: 20px; }
+  .brandname { left: 80px; font-size: 0.95rem; letter-spacing: 0.08em; }
+  #nav { right: 8px; gap: 6px; }
+  #nav a, #nav button { padding: 6px 9px; font-size: 0.72rem; }
+}

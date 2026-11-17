@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KHAGAN GROUPS</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="modern.css">
+</head>
+
+<body class="intro">
+
+  <!-- Üst zolaq -->
+  <header class="topbar">
+    <nav id="nav" hidden>
+      <a href="#profil">Profilim</a>
+      <button id="logout" type="button">Çıxış</button>
+    </nav>
+  </header>
+
+  <!-- Logo (animasiya ilə ortadan sol üst küncə gedir) -->
+  <img id="logo" src="logo.png" alt="KHAGAN ESPORTS logo">
+  <div class="brandname">KHAGAN GROUPS</div>
+
+  <main>
+
+    <!-- ANA SƏHİFƏ -->
+    <section class="view active" id="view-home">
+      <div class="hero">
+        <div class="welcome" id="welcome" hidden>Xoş gəldin, <b id="welcome-name"></b></div>
+        <span class="tag">Esports Təşkilatı</span>
+        <h1>Döyüş <span>meydanına</span><br>hökm et</h1>
+        <p>KHAGAN ESPORTS – güclü oyunçuların, güclü komandanın evi. Sən də hazırsansa, yerini al.</p>
+        <a class="btn" id="cta" href="#qoshul">Komandamıza qoşul</a>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Peşəkar Heyət</h3>
+          <p>Turnirlərdə yarışan, daim inkişaf edən komanda.</p>
+        </div>
+        <div class="card">
+          <h3>Məşqlər</h3>
+          <p>Mütəmadi məşqlər və strategiya analizləri.</p>
+        </div>
+        <div class="card">
+          <h3>Turnirlər</h3>
+          <p>Yerli və beynəlxalq yarışlarda iştirak.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QOŞUL: 2 seçim -->
+    <section class="view" id="view-qoshul">
+      <div class="join">
+        <a class="back" href="#home">← Geri</a>
+        <h2 class="title">Komandamıza <span>qoşul</span></h2>
+        <div class="choices">
+          <a class="choice" href="#qeydiyyat"><b>Qeydiyyatdan keç</b><small>Yeni oyunçu kimi müraciət et</small></a>
+          <a class="choice" href="#giris"><b>Giriş et</b><small>Artıq hesabın var</small></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- QEYDİYYAT -->
+    <section class="view" id="view-qeydiyyat">
+      <div class="join">
+        <a class="back" href="#qoshul">← Geri</a>
+        <h2 class="title">Qeydiyyatdan <span>keç</span></h2>
+
+        <form class="form" id="reg-form">
+          <label>Ad Soyad
+            <input name="fullName" required maxlength="60" autocomplete="name">
+          </label>
+          <label>PUBG Mobile ID
+            <input name="pubgId" required inputmode="numeric" maxlength="15">
+          </label>
+          <label>Yaş
+            <input name="age" type="number" min="10" max="70" required>
+          </label>
+          <label>Əlaqə nömrəsi
+            <input name="phone" type="tel" required placeholder="+994 50 000 00 00" autocomplete="tel">
+          </label>
+          <label>Qatılmaq istədiyin klan
+            <select name="clan" required>
+              <option value="">Seç...</option>
+              <option>KHAGAN Esports</option>
+              <option>KHAGAN Academy</option>
+              <option>KHAGAN Women</option>
+              <option>KHAGAN Rising</option>
+              <option>KHAGAN Legacy</option>
+            </select>
+          </label>
+          <label>Oyunçu rolu
+            <select name="role" required>
+              <option value="">Seç...</option>
+              <option>IGL</option>
+              <option>Fragger</option>
+              <option>Assaulter</option>
+              <option>Support</option>
+              <option>Scout</option>
+              <option>Digər</option>
+            </select>
+          </label>
+          <label>E-poçt (giriş üçün)
+            <input name="email" type="email" required autocomplete="email">
+          </label>
+          <label>Şifrə (ən azı 6 simvol)
+            <input name="password" type="password" minlength="6" required autocomplete="new-password">
+          </label>
+          <label class="full">Mesaj (istəyə bağlı)
+            <textarea name="message" rows="4" maxlength="500"></textarea>
+          </label>
+
+          <p class="err full" id="reg-err"></p>
+          <button class="btn full" type="submit">Qeydiyyatdan keç</button>
+          <p class="alt full">Hesabın var? <a href="#giris">Giriş et</a></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- GİRİŞ -->
+    <section class="view" id="view-giris">
+      <div class="join">
+        <a class="back" href="#qoshul">← Geri</a>
+        <h2 class="title">Giriş <span>et</span></h2>
+
+        <form class="form narrow" id="login-form">
+          <label>E-poçt
+            <input name="email" type="email" required autocomplete="email">
+          </label>
+          <label>Şifrə
+            <input name="password" type="password" required autocomplete="current-password">
+          </label>
+
+          <p class="err" id="login-err"></p>
+          <button class="btn" type="submit">Giriş et</button>
+          <p class="alt">Hesabın yoxdur? <a href="#qeydiyyat">Qeydiyyatdan keç</a></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- PROFİL -->
+    <section class="view" id="view-profil">
+      <div class="join">
+        <a class="back" href="#home">← Ana səhifə</a>
+        <h2 class="title">Mənim <span>profilim</span></h2>
+        <div class="profile" id="profile-list"></div>
+      </div>
+    </section>
+
+    <footer>© 2026 KHAGAN ESPORTS</footer>
+  </main>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
