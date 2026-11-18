@@ -52,7 +52,11 @@ setTimeout(function () {
    3) SƏHİFƏ KEÇİDİ
    #home  #qoshul  #qeydiyyat  #giris  #profil
    ============================== */
-var pages = ["home", "qoshul", "qeydiyyat", "giris", "profil"];
+var pages = ["home", "qoshul", "qeydiyyat", "giris", "profil",
+             "klanlar", "oyuncular", "turnirler", "nailiyyetler", "haqqimizda", "elaqe"];
+// Yalnız daxil olmuş (qeydiyyatlı) istifadəçilər üçün səhifələr
+var members = ["profil", "klanlar", "oyuncular", "turnirler", "nailiyyetler", "haqqimizda", "elaqe"];
+var modalOpen = false;  // "Təbriklər" pəncərəsi açıqdır?
 var me = null;          // daxil olmuş istifadəçi
 var profile = null;     // Firestore-dakı məlumatları
 var authReady = false;  // Firebase cavab verdi?
@@ -68,11 +72,16 @@ function showPage() {
       return;
     }
     // Daxil olmayıbsa: profil açılmasın
-    if (!me && h === "profil") {
+    if (!me && members.indexOf(h) > -1) {
       location.hash = "#giris";
       return;
     }
   }
+
+  // Menyuda aktiv səhifəni işıqlandır
+  document.querySelectorAll("#menu a").forEach(function (a) {
+    a.classList.toggle("on", a.getAttribute("href") === "#" + h);
+  });
 
   swapView(h);
 }
@@ -153,13 +162,17 @@ function errText(x) {
 function render() {
   var name = (profile && profile.fullName) || (me && me.email) || "";
 
-  document.getElementById("nav").hidden = !me;
-  document.getElementById("welcome").hidden = !me;
+  // Təbrik pəncərəsi açıq olanda menyular hələ görünmür
+  var ui = !!me && !modalOpen;
+  document.getElementById("nav").hidden = !ui;
+  document.getElementById("menu").hidden = !ui;
+  document.getElementById("welcome").hidden = !ui;
   document.getElementById("welcome-name").textContent = name;
+  document.body.classList.toggle("has-menu", ui);
 
   var cta = document.getElementById("cta");
-  cta.textContent = me ? "Profilim" : "Komandamıza qoşul";
-  cta.href = me ? "#profil" : "#qoshul";
+  cta.textContent = ui ? "Profilim" : "Komandamıza qoşul";
+  cta.href = ui ? "#profil" : "#qoshul";
 
   var list = document.getElementById("profile-list");
   list.textContent = "";
@@ -199,6 +212,22 @@ auth.onAuthStateChanged(function (u) {
   if (!busy) setUser(u);
 });
 
+/* ----- Təbrik pəncərəsi ----- */
+function openModal() {
+  modalOpen = true;
+  document.getElementById("success-modal").hidden = false;
+  document.body.classList.add("modal-open");
+  document.getElementById("modal-ok").focus();
+}
+
+document.getElementById("modal-ok").addEventListener("click", function () {
+  modalOpen = false;
+  document.getElementById("success-modal").hidden = true;
+  document.body.classList.remove("modal-open");
+  location.hash = "#home"; // ana səhifəyə
+  render();                // yuxarıdakı menyular açılır
+});
+
 /* ----- Qeydiyyat ----- */
 document.getElementById("reg-form").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -234,6 +263,7 @@ document.getElementById("reg-form").addEventListener("submit", function (e) {
     .then(function () {
       busy = false;
       f.reset();
+      openModal();
       setUser(auth.currentUser);
     })
     .catch(function (x) {
