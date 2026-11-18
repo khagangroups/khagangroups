@@ -22,6 +22,17 @@
     </nav>
   </header>
 
+  <!-- Üzv menyusu (qeydiyyatdan / girişdən sonra görünür) -->
+  <nav class="menu" id="menu" hidden>
+    <a href="#home">🏠 Ana səhifə</a>
+    <a href="#klanlar">Klanlar</a>
+    <a href="#oyuncular">Oyunçular</a>
+    <a href="#turnirler">Turnirlər</a>
+    <a href="#nailiyyetler">Nailiyyətlər</a>
+    <a href="#haqqimizda">Haqqımızda</a>
+    <a href="#elaqe">Əlaqə</a>
+  </nav>
+
   <!-- Logo (animasiya ilə ortadan sol üst küncə gedir) -->
   <img id="logo" src="logo.png" alt="KHAGAN ESPORTS logo">
   <div class="brandname">KHAGAN GROUPS</div>
@@ -153,8 +164,81 @@
       </div>
     </section>
 
+    <!-- KLANLAR -->
+    <section class="view" id="view-klanlar">
+      <div class="join">
+        <h2 class="title">Klanlar</h2>
+        <div class="page-content" id="klanlar-content">
+          <!-- Klanlar bölməsi buraya əlavə olunacaq -->
+        </div>
+      </div>
+    </section>
+
+    <!-- OYUNÇULAR -->
+    <section class="view" id="view-oyuncular">
+      <div class="join">
+        <h2 class="title">Oyunçular</h2>
+        <div class="page-content" id="oyuncular-content">
+          <!-- Oyunçular bölməsi buraya əlavə olunacaq -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TURNIRLƏR -->
+    <section class="view" id="view-turnirler">
+      <div class="join">
+        <h2 class="title">Turnirlər</h2>
+        <div class="page-content" id="turnirler-content">
+          <!-- Turnirlər bölməsi buraya əlavə olunacaq -->
+        </div>
+      </div>
+    </section>
+
+    <!-- NAILIYYƏTLƏR -->
+    <section class="view" id="view-nailiyyetler">
+      <div class="join">
+        <h2 class="title">Nailiyyətlər</h2>
+        <div class="page-content" id="nailiyyetler-content">
+          <!-- Nailiyyətlər bölməsi buraya əlavə olunacaq -->
+        </div>
+      </div>
+    </section>
+
+    <!-- HAQQIMIZDA -->
+    <section class="view" id="view-haqqimizda">
+      <div class="join">
+        <h2 class="title">Haqqımızda</h2>
+        <div class="page-content" id="haqqimizda-content">
+          <!-- Haqqımızda bölməsi buraya əlavə olunacaq -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ƏLAQƏ -->
+    <section class="view" id="view-elaqe">
+      <div class="join">
+        <h2 class="title">Əlaqə</h2>
+        <div class="page-content" id="elaqe-content">
+          <!-- Əlaqə bölməsi buraya əlavə olunacaq -->
+        </div>
+      </div>
+    </section>
+
     <footer>© 2026 KHAGAN ESPORTS Bütün hüquqlar qorunur <br><br>Saytla bağlı problem var? +994 55 209 00 74 nömrəsi ilə əlaqə saxlayın (Whatsapp)</footer>
   </main>
+
+  <!-- Qeydiyyat uğurlu pəncərəsi -->
+  <div class="modal" id="success-modal" hidden>
+    <div class="modal-box">
+      <svg class="tick" viewBox="0 0 52 52" aria-hidden="true">
+        <circle class="tick-c" cx="26" cy="26" r="24"/>
+        <path class="tick-p" d="M14 27l8 8 16-17"/>
+      </svg>
+      <h3>Təbriklər!</h3>
+      <p>Qeydiyyatdan uğurla keçdiniz. Əməkdaşlarımız tezliklə sizinlə əlaqə saxlayacaq.</p>
+      <button class="btn" id="modal-ok" type="button">Oldu</button>
+    </div>
+  </div>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
