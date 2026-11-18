@@ -258,3 +258,121 @@ h1 span {
 
 /* ---------- Telefonda barmaqla yaxınlaşdırma və cüt toxunuş olmasın ---------- */
 html, body { touch-action: pan-x pan-y; }
+
+/* ---------- Üzv menyusu ---------- */
+.menu {
+  position: fixed;
+  top: 76px; left: 0; right: 0;
+  z-index: 19;
+  height: 50px;
+  display: flex;
+  padding: 0 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: rgba(8, 8, 10, 0.62);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.8s 0.5s;
+}
+.menu::-webkit-scrollbar { display: none; }
+.menu[hidden] { display: none; }
+body.docked .menu { opacity: 1; }
+.menu:not([hidden]) { animation: menuIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes menuIn { from { opacity: 0; transform: translateY(-24px); } }
+
+.menu a {
+  position: relative;
+  flex: none;
+  display: flex; align-items: center;
+  padding: 0 16px;
+  color: var(--muted);
+  text-decoration: none;
+  font: 500 0.9rem Oswald, Impact, sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.menu a:first-child { margin-left: auto; }
+.menu a:last-child { margin-right: auto; }
+.menu a::after {
+  content: "";
+  position: absolute;
+  left: 16px; right: 16px; bottom: 0;
+  height: 2px;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.menu a:hover { color: var(--text); }
+.menu a.on { color: var(--yellow); }
+.menu a:hover::after, .menu a.on::after { transform: scaleX(1); }
+
+/* Menyu görünəndə məzmun aşağı düşür */
+body.has-menu .view { padding-top: 150px; }
+body.has-menu .hero {
+  min-height: calc(100vh - 150px);
+  min-height: calc(100svh - 150px);
+}
+.page-content { min-height: 300px; }
+
+/* ---------- Təbrik pəncərəsi ---------- */
+body.modal-open { overflow: hidden; }
+.modal {
+  position: fixed; inset: 0;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fadeIn 0.3s;
+}
+.modal[hidden] { display: none; }
+@keyframes fadeIn { from { opacity: 0; } }
+
+.modal-box {
+  width: min(420px, 100%);
+  text-align: center;
+  padding: 34px 28px 30px;
+  background: linear-gradient(160deg, #1a1a1d, #0e0e10);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--yellow);
+  border-radius: 20px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 196, 0, 0.08);
+  animation: modalIn 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+@keyframes modalIn { from { opacity: 0; transform: scale(0.8) translateY(20px); } }
+.modal-box h3 {
+  font-family: Oswald, Impact, sans-serif;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--yellow);
+  margin-bottom: 10px;
+}
+.modal-box p { color: var(--muted); line-height: 1.6; }
+.modal-box .btn { margin-top: 24px; justify-content: center; }
+
+/* Tik işarəsi özünü çəkir */
+.tick { width: 96px; height: 96px; margin-bottom: 14px; }
+.tick-c {
+  fill: rgba(255, 196, 0, 0.08);
+  stroke: var(--yellow); stroke-width: 2.5;
+  stroke-dasharray: 151; stroke-dashoffset: 151;
+  animation: draw 0.7s 0.2s ease forwards;
+}
+.tick-p {
+  fill: none;
+  stroke: var(--yellow); stroke-width: 4;
+  stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 40; stroke-dashoffset: 40;
+  animation: draw 0.45s 0.85s ease forwards;
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .tick-c, .tick-p { stroke-dashoffset: 0 !important; }
+}
